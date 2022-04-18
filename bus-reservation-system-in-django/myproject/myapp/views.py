@@ -1,15 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from decimal import Decimal
 
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import User, Bus, Book
+from .models import User, Bus, Book ,Asset,AssetMain
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
+id_g = 0
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 
 def home(request):
@@ -107,6 +115,182 @@ def seebookings(request,new={}):
         context["error"] = "Sorry no buses booked"
         return render(request, 'myapp/findbus.html', context)
 
+def viewasset(request):
+    context = {}
+    if request.method == 'POST':
+        id_r = request.POST.get('asset_id')
+        asset_view = Book.objects.filter(userid=id_r)
+        #seats_r = int(request.POST.get('no_seats'))
+        if asset_view:
+            return render(request, 'myapp/booklist.html', locals())
+        else:
+            context["error"] = "Sorry no buses booked"
+            return render(request, 'myapp/findbus.html', context)
+
+    else:
+        return render(request, 'myapp/findbus.html')
+#@login_required(login_url='signin')
+def asset(request,new={}):
+    context = {}
+    #id_r = request.user.id
+    asset = Asset.objects.all()
+    #assest_list = Asset.objects.filter(asset_name="Civil")
+    if asset:
+        return render(request, 'myapp/asset.html', locals())
+    else:
+        context["error"] = "Sorry no asset record"
+        #return render(request, 'myapp/findbus.html', context)
+
+
+def assetmainlist(request,new={}):
+    context = {}
+    #id_r = request.user.id
+    asset = AssetMain.objects.all()
+    #assest_list = Asset.objects.filter(asset_name="Civil")
+    if asset:
+        return render(request, 'myapp/assetmainlist.html', locals())
+    else:
+        context["error"] = "Sorry no asset record"
+        #return render(request, 'myapp/findbus.html', context)
+
+
+
+
+def assetmainupdate(request,pk,new={}):
+    global id_g
+    print('s1')
+    print(pk)
+    asset_main = AssetMain.objects.filter(id=pk)
+    print(asset_main)
+    asset_id_r= str(request.POST.get('Issue_id'))
+    asset_assign_r = str(request.POST.get('asset_assign'))
+    date_solved_r = str(request.POST.get('date_solved'))
+    asset_comments_r = str(request.POST.get('asset_comments'))
+    context = {} 
+    if request.method == 'POST' and 'python_code' in request.POST:
+        print('python code in')
+        AssetMain.objects.filter(id=asset_id_r).update(
+        asset_assign =asset_assign_r, asset_comments =asset_comments_r,date_solved=date_solved_r)
+    return render(request, 'myapp/assetmainupdate.html', locals())
+    #context = {} 
+    #id_r = request.POST.get('asset_id')
+    # #AssetMain.objects.filter(id=id_r).update(asset_desc='me5')
+    # if request.method == 'POST' and 'python_code' in request.POST:
+    #     id_r = request.POST.get('asset_id')
+    #     id_r = id_g
+    #     asset_main = AssetMain.objects.filter(id=id_r)
+    #     asset_desc_r = str(request.POST.get('asset_desc'))
+    #     AssetMain.objects.filter(id=id_r).update(asset_desc=asset_desc_r)
+    #     asset_desc_r = str(request.POST.get('asset_desc'))
+    #     print("------")
+    #     print(id_g)
+    #     print(asset_main)
+    #     print(asset_desc_r)
+    #     print('python code wor')
+    #     print("------")
+    if request.method == 'POST':
+        id_r = request.POST.get('asset_id')
+        #id_r = '71'
+        asset_main = AssetMain.objects.filter(id=id_r)
+        print('im n')
+        print(asset_main)
+        #AssetMain.objects.filter(id=id_r).update(asset_desc='me1')
+        #AssetMain.objects.filter(id=id_r).update(asset_desc='done')
+        #print(asset_main)
+        #print(id_r)
+        print("elif")
+        asset_id_r= str(request.POST.get('Issue_id'))
+        asset_name_r = str(request.POST.get('asset_name'))
+        asset_tag_r = str(request.POST.get('asset_tag'))
+        asset_serial_No_r = str(request.POST.get('asset_serial_No'))
+        asset_loc_r = str(request.POST.get('asset_loc'))
+        date_main_r = request.POST.get('date_main')
+        asset_desc_r = str(request.POST.get('asset_desc'))
+        asset_assign_r = str(request.POST.get('asset_assign'))
+        date_solved_r = str(request.POST.get('date_solved'))
+        asset_comments_r = str(request.POST.get('asset_comments'))
+        if 'python_code' in request.POST:
+            print('python code in')
+            AssetMain.objects.filter(id=asset_id_r).update(
+            asset_assign =asset_assign_r, asset_comments =asset_comments_r,date_solved=date_solved_r)
+
+
+        if asset_main:
+            return render(request, 'myapp/assetmainupdate.html', locals())
+            print(locals())
+        else:
+            context["error"] = "Sorry no asset information"
+            return render(request, 'myapp/assetmainupdate.html', context)
+
+        if asset_main:
+            return render(request, 'myapp/assetmainupdate.html', locals())
+            print(locals())
+        else:
+            context["error"] = "Sorry no asset information"
+            return render(request, 'myapp/assetmainupdate.html', context)
+       
+        #book_list = Asset.objects.filter(asset_id=id_r)
+        #seats_r = int(request.POST.get('no_seats'))
+
+
+    return render(request, "myapp/home.html", {})
+def assetview(request,new={}):
+    context = {}
+    if request.method == 'POST':
+        id_r = request.POST.get('asset_id')
+        asset_view = Asset.objects.filter(asset_id=id_r)
+        #seats_r = int(request.POST.get('no_seats'))
+        if asset_view:
+            return render(request, 'myapp/assetview.html', locals())
+        else:
+            context["error"] = "Sorry no asset information"
+            return render(request, 'myapp/assetview.html', context)
+    else:
+        return render(request, 'myapp/assetview.html')
+
+def assetmain(request,new={}):
+    context = {}
+    if request.method == 'POST':
+        id_r = request.POST.get('asset_id')
+        asset_main = Asset.objects.filter(asset_id=id_r)
+        print(id_r)
+        asset_id_r= str(request.POST.get('asset_id'))
+        asset_name_r = str(request.POST.get('asset_name'))
+        asset_tag_r = str(request.POST.get('asset_tag'))
+        asset_serial_No_r = str(request.POST.get('asset_serial_No'))
+        asset_loc_r = str(request.POST.get('asset_loc'))
+        date_main_r = request.POST.get('date_main')
+        asset_desc_r = str(request.POST.get('asset_desc'))
+        asset_assign_r = str(request.POST.get('asset_assign'))
+        date_solved_r = str(request.POST.get('date_solved'))
+        asset_comments_r = str(request.POST.get('asset_comments'))
+        ##
+        print("asset_name_r")
+        print(asset_name_r)
+        if asset_name_r != 'None':
+            assetmain = AssetMain.objects.create(asset_id = asset_id_r,asset_name = asset_name_r, asset_tag =asset_tag_r,
+            date_main= date_main_r,asset_serial_No =asset_serial_No_r,asset_loc =asset_loc_r, asset_status ='Open',
+            asset_desc =asset_desc_r,asset_assign =asset_assign_r, asset_comments =asset_comments_r)
+        # # ##
+        print(asset_name_r,asset_tag_r,asset_serial_No_r)
+        if asset_main:
+            return render(request, 'myapp/assetmain.html', locals())
+            print(locals())
+        else:
+            context["error"] = "Sorry no asset information"
+            return render(request, 'myapp/assetmain.html', context)
+       
+        #book_list = Asset.objects.filter(asset_id=id_r)
+        #seats_r = int(request.POST.get('no_seats'))
+    return render(request, "myapp/home.html", {})
+
+def index(request):
+    if request.method == 'POST':
+        var = request.POST.getlist('mylist')
+        id_r = request.POST.get('mylist1')
+        print(var)
+        print(id_r)
+    return render(request, "myapp/home.html", {})
 
 def signup(request):
     context = {}
@@ -157,3 +341,4 @@ def success(request):
     context = {}
     context['user'] = request.user
     return render(request, 'myapp/success.html', context)
+

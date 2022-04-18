@@ -1,0 +1,55 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<h3>{{msg}}</h3>
+<h2>List of Assest</h2>
+<table class="table table-striped">
+    <thead style="background-color: blue;color: white;">
+    <td>Asset ID</td>
+    <td>Asset Name</td>
+    <td>Asset Location</td>
+    <td>Asset Sno</td>
+    <td>Asset Maintainable</td>
+    <td>Asset Active</td>
+    <td>Asset Maintenance Dt</td>
+
+    </thead>
+
+    {% for row in asset %}
+    <tr>
+        <td>{{row.asset_id}}</td>
+        <td>{{row.asset_name}}</td>
+        <td>{{row.asset_loc}}</td>
+        <td>{{row.asset_serial_No}}</td>
+        <td>{{row.asset_Maintainable}}</td>
+        <td>{{row.asset_active}}</td>
+        <td>{{row.asset_main_date}}</td>
+        <td> <button type="submit" class="btn btn-danger float-left">Edit</button></td>
+        <td> <button type="submit" class="btn btn-danger float-left">Report Maintanance</button></td>
+        
+
+
+    </tr>
+    {% endfor %}
+</table>
+<form action="{% url 'assetview' %}" method="post">
+    <h3>Choose Asset</h3>
+    {% csrf_token %}
+    <div class="col-auto">
+        <label for="example-email-input" class="col-2 col-form-label">Asset ID</label>
+        <div class="col-5">
+            <input name='asset_id' class="form-control" type="number" id="example-email-input">
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-danger float-left">Cancel bus</button>
+    </div>
+
+
+    {{error}}
+
+</form>
+
+{% endblock %}

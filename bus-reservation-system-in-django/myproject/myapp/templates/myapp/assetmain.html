@@ -1,0 +1,65 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<!-- Modal body -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mx-auto" style="margin-top: 70px">
+            <h4>Asset Maintenance</h4>
+            <form action="{% url 'assetmain' %}" method="post">
+                {% csrf_token %}
+                {% for row in asset_main %}
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input name='asset_id' class="form-control" type="text" id="example-email-input"value="{{row.asset_id}}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input name='asset_name' class="form-control" type="text" id="example-email-input"value="{{row.asset_name}}" readonly >
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Tag</label>
+                    <div class="col-10">
+                        <input name='asset_tag' class="form-control" type="text" value="{{row.asset_tag}}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Serial No</label>
+                    <div class="col-10">
+                        <input name='asset_serial_No' class="form-control" type="text" id="example-email-input"value="{{row.asset_serial_No}}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Location</label>
+                    <div class="col-10">
+                        <input name='asset_loc' class="form-control" type="text" value="{{row.asset_loc}}"readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label" >Issue st time</label>
+                    <div class="col-10">
+                        <input name='date_main' class="form-control" type="datetime-local">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Issue Description</label>
+                    <div class="col-10">
+                        <input name='asset_desc' class="form-control" type="text">
+                    </div>
+                </div>
+                
+                {% endfor %}
+
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success float-right" >Submit</button>
+                </div>
+                {{error}}
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

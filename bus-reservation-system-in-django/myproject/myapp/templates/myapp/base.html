@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
     <div class="container">
-        <a class="navbar-brand" href="#" style="color: white;">Vallacar Transit Incorporated</a>
+        <a class="navbar-brand" href="#" style="color: white;">Assest Managment System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,6 +24,8 @@
                 <a class="nav-item nav-link active" href="{% url 'home' %}" style="color: white;">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{% url 'findbus' %}" style="color: white;">Find Bus</a>
                 <a class="nav-item nav-link" href="{% url 'seebookings' %}" style="color: white;">See Bookings</a>
+                <a class="nav-item nav-link" href="{% url 'asset' %}" style="color: white;">Asset List</a>
+                <a class="nav-item nav-link" href="{% url 'assetmainlist' %}" style="color: white;">Asset Maintenance</a>
                 {% if request.user.is_active %}
                 <a class="nav-item nav-link " href="{% url 'signout' %}" style="color: white;">Sign out</a>
                 {% else %}

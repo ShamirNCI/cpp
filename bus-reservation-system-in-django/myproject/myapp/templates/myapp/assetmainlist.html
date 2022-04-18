@@ -1,0 +1,42 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+    
+{% csrf_token %}
+<h3>{{msg}}</h3>
+<h2>List of Assest</h2>
+<table class="table table-striped">
+    <thead style="background-color: blue;color: white;">
+    <td>Asset ID</td>
+    <td>Asset Name</td>
+    <td>Asset Tag</td>
+    <td>Asset Sno</td>
+    <td>Asset Location</td>
+    <td>Asset Report on</td>
+    <td>Asset Report Des. Dt</td>
+
+    </thead>
+
+    {% for row in asset %}
+    <tr>
+        <td>{{row.id}}</td>
+        <td>{{row.asset_name}}</td>
+        <td>{{row.asset_tag}}</td>
+        <td>{{row.asset_serial_No}}</td>
+        <td>{{row.asset_loc}}</td>
+        <td>{{row.date_main}}</td>
+        <td>{{row.asset_desc}}</td>
+        <td><a class="btn btn-primary btn-s" href="{% url 'assetmainupdate' row.id %}" method="post"><span class="glyphicon glyphicon-log-out"></span></a></td>
+
+    
+
+
+    </tr>
+    {% endfor %}
+</table>
+
+    {{error}}
+
+
+
+{% endblock %}

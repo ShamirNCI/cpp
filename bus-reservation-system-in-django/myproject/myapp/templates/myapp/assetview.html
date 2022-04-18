@@ -1,0 +1,49 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<h3>{{msg}}</h3>
+<h4>Asset Details</h4>
+
+<form action="{% url 'assetmain' %}" method="post">
+    {% csrf_token %}
+<!-- Modal body -->
+<div class="modal-body">
+    <ul class="list-group list-group-flush" id="myList" >
+        {% for row in asset_view %}
+        <li class="list-group-item"><b>ID:</b> {{row.asset_id}}<input type="hidden" name="asset_id" value="{{row.asset_id}}"></li>
+        <li class="list-group-item"><b>Name:</b> {{row.asset_name}}</li>
+        <li class="list-group-item"><b>Description:</b> {{row.asset_desc}}</li>
+        <li class="list-group-item"><b>Location:</b> {{row.asset_loc}}</li>
+        <li class="list-group-item"><b>Tag:</b> {{row.asset_tag}}</li>
+        <li class="list-group-item"><b>Group:</b> {{row.asset_group}}</li>
+        <li class="list-group-item"><b>Category:</b> {{row.asset_category}}</li>
+        <li class="list-group-item"><b>Serial no:</b> {{row.asset_serial_No}}</li>
+        <li class="list-group-item"><b>Manufacturer:</b> {{row.asset_manufacturer}}</li>
+        <li class="list-group-item"><b>Purchase Date:</b> {{row.date_purchased}}</li>
+        <li class="list-group-item"><b>Warranty:</b> {{row.date_warranty}}</li>
+        <li class="list-group-item"><b>On Warranty:</b> {{row.asset_warranty}}</li>
+        <li class="list-group-item"><b>Active:</b> {{row.asset_active}}</li>
+        <li class="list-group-item"><b>Manitainable:</b> {{row.asset_Maintainable}}</li>
+        <li class="list-group-item"><b>Maintainance Date:</b> {{row.asset_main_date}}</li>
+    </ul>
+</div>
+                    
+    {% endfor %}
+
+
+
+
+
+
+    <br>
+    <br>
+    <div class="pull-right">
+        <button type="submit" class="btn btn-danger float-left">Report Issue</button>
+    </div>
+
+
+    {{error}}
+
+</form>
+
+{% endblock %} 
