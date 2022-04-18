@@ -238,6 +238,7 @@ def assetmainupdate(request,pk,new={}):
 
 
 def assetview(request,pk,new={}):
+
     asset_view = Asset.objects.filter(asset_id=pk)
     print(asset_view)
     print(pk)
@@ -259,6 +260,8 @@ def assetview(request,pk,new={}):
         return render(request, 'myapp/assetview.html')
 
 def workorder(request,pk,new={}):
+    asset_main = AssetMain.objects.filter(id=pk)
+    print(asset_main)
     return render(request, 'myapp/workorder.html', locals())
 
 def assetmain(request,new={}):

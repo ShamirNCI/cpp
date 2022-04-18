@@ -107,6 +107,7 @@
 <br><br><br>
 <div class="invoice-box">
   <table cellpadding="0" cellspacing="0">
+    {% for row in asset_main %}
     <tr class="top">
       <td colspan="2">
         <table>
@@ -117,9 +118,9 @@
 
             <td>
 
-              Admit Date: {{admitDate}}<br>
-              Release Date: {{todayDate}}<br>
-              Days Spent: {{day}}
+              Admit Date: {{row.id}}<br>
+              Release Date: {{row.asset_name}}<br>
+              Days Spent: {{row.asset_desc}}
             </td>
           </tr>
         </table>
@@ -220,7 +221,7 @@
           <input type="submit" name="submit" value="Generate Bill">
         </td>
       </tr>
-
+      {% endfor %}
     </form>
   </table>
 </div>

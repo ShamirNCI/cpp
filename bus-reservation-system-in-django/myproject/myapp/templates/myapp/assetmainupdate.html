@@ -6,7 +6,7 @@
         <div class="col-sm-6 mx-auto" style="margin-top: 70px">
             <h4>Asset Maintenance Update</h4>
 
-            <form method="post">
+
                 {% csrf_token %}
 
                 {% for row in asset_main %}
@@ -70,14 +70,18 @@
                         <input name='asset_comments' class="form-control" type="text" value="{{row.asset_comments}}">
                     </div>
                 </div>
-                {% endfor %}
+                
                 
 
                 <div class="pull-right">
+                    <td><a class="btn btn-primary btn-s" href="{% url 'workorder' row.id%}" method="post"><span class="glyphicon glyphicon-log-out"></span></a></td>
+
+                    
                     <button type="submit" name="python_code" class="btn btn-primary float-right">Ok</button> 
                 </div>
+                {% endfor %}
                 {{error}}
-            </form>
+            
 
 
         </div>
