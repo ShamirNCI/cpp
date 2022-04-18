@@ -23,33 +23,15 @@
         <td>{{row.asset_Maintainable}}</td>
         <td>{{row.asset_active}}</td>
         <td>{{row.asset_main_date}}</td>
-        <td> <button type="submit" class="btn btn-danger float-left">Edit</button></td>
-        <td> <button type="submit" class="btn btn-danger float-left">Report Maintanance</button></td>
-        
+        <td><a class="btn btn-primary btn-s" href="{% url 'assetview' row.asset_id %}" method="post"><span class="glyphicon glyphicon-log-out"></span></a></td>
+
 
 
     </tr>
     {% endfor %}
 </table>
-<form action="{% url 'assetview' %}" method="post">
-    <h3>Choose Asset</h3>
-    {% csrf_token %}
-    <div class="col-auto">
-        <label for="example-email-input" class="col-2 col-form-label">Asset ID</label>
-        <div class="col-5">
-            <input name='asset_id' class="form-control" type="number" id="example-email-input">
-        </div>
-    </div>
-
-    <br>
-    <br>
-    <div class="pull-right">
-        <button type="submit" class="btn btn-danger float-left">Cancel bus</button>
-    </div>
-
-
     {{error}}
 
-</form>
+
 
 {% endblock %}

@@ -235,11 +235,18 @@ def assetmainupdate(request,pk,new={}):
 
 
     return render(request, "myapp/home.html", {})
-def assetview(request,new={}):
+def assetview(request,pk,new={}):
+    asset_view = Asset.objects.filter(asset_id=pk)
+    print(asset_view)
+    print(pk)
     context = {}
+    return render(request, 'myapp/assetview.html', locals())
+    return render(request, 'myapp/assetmainupdate.html', locals())
+    #id_r = request.POST.get('pk')
+    asset_view = Asset.objects.filter(asset_id=pk)
     if request.method == 'POST':
-        id_r = request.POST.get('asset_id')
-        asset_view = Asset.objects.filter(asset_id=id_r)
+        #id_r = request.POST.get('asset_id')
+        #asset_view = Asset.objects.filter(asset_id=id_r)
         #seats_r = int(request.POST.get('no_seats'))
         if asset_view:
             return render(request, 'myapp/assetview.html', locals())
