@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
+import datetime
 id_g = 0
 from django.views.generic import (
     ListView,
@@ -162,15 +163,16 @@ def assetmainupdate(request,pk,new={}):
     print(pk)
     asset_main = AssetMain.objects.filter(id=pk)
     print(asset_main)
-    asset_id_r= str(request.POST.get('Issue_id'))
-    asset_assign_r = str(request.POST.get('asset_assign'))
-    date_solved_r = str(request.POST.get('date_solved'))
-    asset_comments_r = str(request.POST.get('asset_comments'))
+
     context = {} 
     if request.method == 'POST':
+        asset_id_r= str(request.POST.get('Issue_id'))
+        asset_assign_r = str(request.POST.get('asset_assign'))
+        date_solved_r = str(request.POST.get('date_solved'))
+        asset_comments_r = str(request.POST.get('asset_comments'))
         print('python code in')
         print(asset_id_r)
-        AssetMain.objects.filter(id=asset_id_r).update(asset_assign =asset_assign_r
+        AssetMain.objects.filter(id=pk).update(asset_assign =asset_assign_r
         ,asset_comments =asset_comments_r,date_solved=date_solved_r)
     return render(request, 'myapp/assetmainupdate.html', locals())
     #context = {} 

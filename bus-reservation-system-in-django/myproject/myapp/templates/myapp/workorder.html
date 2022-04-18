@@ -118,9 +118,7 @@
 
             <td>
 
-              Admit Date: {{row.id}}<br>
-              Release Date: {{row.asset_name}}<br>
-              Days Spent: {{row.asset_desc}}
+              {% now "jS F Y H:i" %}<br>
             </td>
           </tr>
         </table>
@@ -132,14 +130,16 @@
         <table>
           <tr>
             <td>
-              Patient Name : {{name}}<br>
-              Patient Mobile : {{mobile}}<br>
-              Patient Addres : {{address}}<br>
+              ID: {{row.id}}<br>
+              Asset Name: {{row.asset_name}}<br>
+              Tag:{{row.asset_tag}}<br>
+              Serial No:{{row.asset_serial_No}}<br>
+              Location:{{row.asset_loc}}<br>
+              Issue Description : {{row.asset_desc}}<br>
             </td>
 
             <td>
-              Doctor Name :<br>
-              {{assignedDoctorName}}<br>
+
 
             </td>
           </tr>
@@ -149,68 +149,56 @@
 
     <tr class="heading">
       <td>
-        Disease and Symptoms
+        Details
       </td>
       <td>
 
       </td>
 
-    </tr>
 
-    <tr class="details">
-      <td>
-        {{symptoms}}
-      </td>
-    </tr>
-    <tr class="heading">
-      <td>
-        Item
-      </td>
-
-      <td>
-        Price
-      </td>
-    </tr>
     <form method="post">
       {% csrf_token %}
 
       <tr class="item">
         <td>
-          Room Charge (Per Day)
+          Assigned Engineer 
         </td>
 
         <td>
-          <input type="number" name="roomCharge" placeholder="In Rupees" value="">
-        </td>
-      </tr>
-
-      <tr class="item">
-        <td>
-          Doctor Fee
-        </td>
-
-        <td>
-          <input type="number" name="doctorFee" placeholder="In Rupees" value="">
+          <input name='asset_assign' class="form-control" type="text" value="{{row.asset_assign}}" readonly>
+      </div>
         </td>
       </tr>
 
       <tr class="item">
         <td>
-          Medicine Cost
+          Issue raised on 
         </td>
 
         <td>
-          <input type="number" name="medicineCost" placeholder="In Rupees" value="">
+          
+          <input name='date_solved' class="form-control" required="" type="datetime-local" value="{{row.date_main|date:'Y-m-d'}}T{{row.date_solved|time:'H:i:s'}}" readonly>
+    
+      </td>
+      </tr>
+
+      <tr class="item">
+        <td>
+          Issue solved on
+        </td>
+
+        <td>
+          <input name='date_solved' class="form-control" required="" type="datetime-local" value="{{row.date_solved|date:'Y-m-d'}}T{{row.date_solved|time:'H:i:s'}}" readonly>
         </td>
       </tr>
 
       <tr class="item last">
         <td>
-          Other Charge
+          Comments
         </td>
 
         <td>
-          <input type="number" name="OtherCharge" placeholder="In Rupees" value="">
+          <input name='asset_comments' class="form-control" type="text" value="{{row.asset_comments}}" readonly>
         </td>
       </tr>
 
@@ -218,7 +206,7 @@
         <td></td>
 
         <td>
-          <input type="submit" name="submit" value="Generate Bill">
+          <input type="submit" name="submit" value="Generate Workorder">
         </td>
       </tr>
       {% endfor %}

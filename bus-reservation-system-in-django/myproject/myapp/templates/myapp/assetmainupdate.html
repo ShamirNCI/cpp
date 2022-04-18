@@ -7,9 +7,10 @@
             <h4>Asset Maintenance Update</h4>
 
 
-                {% csrf_token %}
 
                 {% for row in asset_main %}
+                <form action="{% url 'assetmainupdate' row.id %}" method="post">
+                    {% csrf_token %}
                 <div class="form-group row">
                     <label for="example-email-input" class="col-2 col-form-label">Issue id</label>
                     <div class="col-10">
@@ -76,11 +77,14 @@
                 <div class="pull-right">
                     <td><a class="btn btn-primary btn-s" href="{% url 'workorder' row.id%}" method="post"><span class="glyphicon glyphicon-log-out"></span></a></td>
 
-                    
+                </div>
+
+                <div>
                     <button type="submit" name="python_code" class="btn btn-primary float-right">Ok</button> 
                 </div>
                 {% endfor %}
                 {{error}}
+                </form>
             
 
 
