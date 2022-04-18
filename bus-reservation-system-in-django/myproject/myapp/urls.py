@@ -8,6 +8,7 @@ urlpatterns = [
     path('cancellings', views.cancellings, name="cancellings"),
     path('seebookings', views.seebookings, name="seebookings"),
     path('asset', views.asset, name="asset"),
+    path('workorder/<int:pk>/', views.workorder, name="workorder"),
     path('assetview/<int:pk>/', views.assetview, name="assetview"),
     path('assetmainupdate/<int:pk>/', views.assetmainupdate, name="assetmainupdate"),
     path('assetmainlist', views.assetmainlist, name="assetmainlist"),
