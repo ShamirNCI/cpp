@@ -6,7 +6,8 @@
         <div class="col-sm-6 mx-auto" style="margin-top: 70px">
             <h4>Asset Maintenance Update</h4>
 
-
+            <form method="post">
+                {% csrf_token %}
 
                 {% for row in asset_main %}
                 <div class="form-group row">
@@ -70,14 +71,15 @@
                     </div>
                 </div>
                 {% endfor %}
-                <form action="{% url 'assetmainupdate' row.id %}" method="post">
-                {% csrf_token %}
+                
 
                 <div class="pull-right">
+                    
                     <button type="submit" name="python_code" class="btn btn-primary float-right">Ok</button> 
                 </div>
                 {{error}}
-                </form>
+            </form>
+
 
         </div>
     </div>

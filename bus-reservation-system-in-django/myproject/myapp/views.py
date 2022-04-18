@@ -167,10 +167,11 @@ def assetmainupdate(request,pk,new={}):
     date_solved_r = str(request.POST.get('date_solved'))
     asset_comments_r = str(request.POST.get('asset_comments'))
     context = {} 
-    if request.method == 'POST' and 'python_code' in request.POST:
+    if request.method == 'POST':
         print('python code in')
-        AssetMain.objects.filter(id=asset_id_r).update(
-        asset_assign =asset_assign_r, asset_comments =asset_comments_r,date_solved=date_solved_r)
+        print(asset_id_r)
+        AssetMain.objects.filter(id=asset_id_r).update(asset_assign =asset_assign_r
+        ,asset_comments =asset_comments_r,date_solved=date_solved_r)
     return render(request, 'myapp/assetmainupdate.html', locals())
     #context = {} 
     #id_r = request.POST.get('asset_id')
@@ -209,7 +210,7 @@ def assetmainupdate(request,pk,new={}):
         asset_assign_r = str(request.POST.get('asset_assign'))
         date_solved_r = str(request.POST.get('date_solved'))
         asset_comments_r = str(request.POST.get('asset_comments'))
-        if 'python_code' in request.POST:
+        if 'python_co de' in request.POST:
             print('python code in')
             AssetMain.objects.filter(id=asset_id_r).update(
             asset_assign =asset_assign_r, asset_comments =asset_comments_r,date_solved=date_solved_r)
