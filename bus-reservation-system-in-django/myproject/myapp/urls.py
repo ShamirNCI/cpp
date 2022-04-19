@@ -9,6 +9,7 @@ urlpatterns = [
     path('seebookings', views.seebookings, name="seebookings"),
     path('asset', views.asset, name="asset"),
     path('workorder/<int:pk>/', views.workorder, name="workorder"),
+    path('download-pdf/<int:pk>', views.download_pdf_view,name='download-pdf'),
     path('assetview/<int:pk>/', views.assetview, name="assetview"),
     path('assetmainupdate/<int:pk>/', views.assetmainupdate, name="assetmainupdate"),
     path('assetmainlist', views.assetmainlist, name="assetmainlist"),

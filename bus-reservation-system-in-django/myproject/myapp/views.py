@@ -11,6 +11,14 @@ from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 import datetime
+#---------------------
+import io
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.template import Context
+
+
+
 id_g = 0
 from django.views.generic import (
     ListView,
@@ -264,7 +272,43 @@ def assetview(request,pk,new={}):
 def workorder(request,pk,new={}):
     asset_main = AssetMain.objects.filter(id=pk)
     print(asset_main)
+    #render_to_pdf('hospital/download_bill.html', context_dict)
+
+    context_dict=[]
     return render(request, 'myapp/workorder.html', locals())
+    #return render_to_pdf('hospital/download_bill.html',dict)
+#-----------------
+def render_to_pdf(template_src, context_dict):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = io.BytesIO()
+    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return
+
+
+def download_pdf_view(request,pk):
+    asset_main = AssetMain.objects.filter(id=pk)
+    print(asset_main)
+    #dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=pk).order_by('-id')[:1]
+    dict={
+
+        'id':asset_main[0].asset_name,
+        'assestname':asset_main[0].id,
+        'tag':asset_main[0].asset_tag,
+        'serialno':asset_main[0].asset_serial_No,
+        'location':asset_main[0].asset_loc,
+        'issuedescription':asset_main[0].asset_desc,
+        'assignedengineer':asset_main[0].asset_assign,
+        'issueraisedon':asset_main[0].date_main,
+        'issuesolvedon':asset_main[0].date_solved,
+        'comments':asset_main[0].asset_comments,
+    }
+    return render_to_pdf('myapp/download_bill.html',dict)
+
+#-----------------
+
 
 def assetmain(request,new={}):
     context = {}
